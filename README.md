@@ -151,3 +151,32 @@ This page is to create accounts for users
 8. The Signup page view
 
 ### Step 2: Break Each View into a Hierarchy of Components
+
+1. Sign in view (Impersonate)
+
+* App - the overall container for the project
+* Navigation - displays the navigation
+* Login Box - in charge of managing login flow
+
+2. Sign in view (Authenticate)
+3. The Home view is broken up into Components
+    * App - the overall container for the project
+    * Navigation - displays the navigation
+    * Poll Category Navigation - displays the navigation of poll categories
+    * Poll list - responsible for the entire list of polls this should filter the polls based on whether they are answered or not
+    * Poll Preview - in charge of displaying the content for a single poll preview
+
+    4. Components for the poll page view
+
+    * App - the overall container for the project
+    * Navigation - displays the navigation
+    * Poll Container - displays the poll info
+    * Poll Questions - displays the poll questions
+    * Poll Results - displays the poll results
+
+    ### Step 3: What events happen in the App
+
+    1. Sign in view (Impersonate)
+    * get the users to impersonate
+        * action type for this event: `GET_USERS`
+    
