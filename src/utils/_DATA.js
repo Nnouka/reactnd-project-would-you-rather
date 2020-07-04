@@ -177,7 +177,7 @@ export function _saveUser(user) {
       [user.username] : {
         id: user.username,
         name: user.name,
-        avatarURL: "",
+        avatarURL: '',
         answers: {
           
         },

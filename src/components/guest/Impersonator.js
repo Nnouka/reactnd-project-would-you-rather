@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { setAuthedUser } from '../actions/authedUser';
+import { setAuthedUser } from '../../actions/authedUser';
+import { withRouter } from 'react-router-dom';
+import icon from '../../assets/icons/icon.jpg';
 
 class Impersonator extends Component {
     state = {
@@ -13,11 +15,14 @@ class Impersonator extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const {selectedUser} = this.state;
-        const {dispatch} = this.props;
+        const {dispatch, history, intendedUrl} = this.props;
 
         dispatch(setAuthedUser(selectedUser));
 
         this.setState(() => ({selectedUser: '0'}));
+        const redirectUrl = intendedUrl === undefined ? '/home' : intendedUrl;
+        console.log('redirecting to', redirectUrl);
+        history.push(redirectUrl);
     }
     render() {
         const {users} = this.props;
@@ -38,7 +43,7 @@ class Impersonator extends Component {
                             Object.keys(users).map((uid) => {
                                 const user = users[uid];
                                 const style = {
-                                    backgroundImage: `url(${user.avatarURL})`
+                                    backgroundImage: `url(${user.avatarURL === '' ? icon : user.avatarURL})`
                                 }
                                 return (
                                     <option
@@ -66,9 +71,10 @@ class Impersonator extends Component {
     }
 }
 
-function mapStateToProps({users}) {
+function mapStateToProps({users}, {intendedUrl}) {
     return {
-        users
+        users,
+        intendedUrl
     }
 }
-export default connect(mapStateToProps)(Impersonator);
+export default withRouter(connect(mapStateToProps)(Impersonator));

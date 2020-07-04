@@ -6,9 +6,6 @@ import NewUser from './NewUser';
 class Login extends Component {
     IMPERSONATE = 'IMPERSONATE';
     NEW_USER = 'NEW_USER';
-    componentDidMount() {
-        
-    }
     state = {
         active: this.IMPERSONATE
     }
@@ -20,7 +17,7 @@ class Login extends Component {
         return (
             <div className='card shadow'>
                 <div className='card-header center logo-bg'>
-                        <h3>Welcome to The Would You Rather App</h3>
+                        <h2>Welcome to The Would You Rather App</h2>
                         <p>Please sign in to continue</p>
                     </div>
                 <div className='card-content'>
@@ -38,11 +35,18 @@ class Login extends Component {
                             New User
                         </li>
                     </ul>
-                    {active === this.IMPERSONATE ? <Impersonator /> : <NewUser />}
+                    {active === this.IMPERSONATE 
+                    ? <Impersonator intendedUrl={this.props.intendedUrl} /> 
+                    : <NewUser intendedUrl={this.props.intendedUrl} />}
                 </div>
             </div>
         );
     }
 }
-
-export default connect()(Login);
+function mapStateToProps({authedUser}, {intendedUrl}) {
+    return {
+        authedUser,
+        intendedUrl
+    }
+}
+export default connect(mapStateToProps)(Login);

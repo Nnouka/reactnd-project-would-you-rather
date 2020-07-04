@@ -1,5 +1,5 @@
-// import {saveLikeToggle, saveTweet} from '../utils/api';
-// import {showLoading, hideLoading} from 'react-redux-loading';
+import {getQuestions} from '../utils/api';
+import {showLoading, hideLoading} from 'react-redux-loading';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 // export const TOGGLE_TWEET = 'TOGGLE_TWEET';
@@ -35,6 +35,17 @@ export function receiveQuestions (questions) {
         questions,
     }
 }
+
+export function handleReceiveQuestions() {
+    return (dispatch) => {
+        dispatch(showLoading())
+        return getQuestions().then(questions => {
+            dispatch(receiveQuestions(questions));
+            dispatch(hideLoading())
+        });
+    }
+}
+
 /*
 function toggleTweet ({id, authedUser, hasLiked}) {
     return {

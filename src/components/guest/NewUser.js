@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { handleAddUser } from '../actions/users';
+import { handleAddUser } from '../../actions/users';
+import { withRouter } from 'react-router-dom';
 import { TiTick, TiTimes} from 'react-icons/ti'
 
 
@@ -10,7 +11,8 @@ class NewUser extends Component {
         name: '',
     };
     handleUsernameInput = (e) => {
-        const username = e.target.value;
+        let username = e.target.value;
+        username = username.replace(' ', '_');
         this.setState((prevState) => ({
             ...prevState,
             username
@@ -27,23 +29,32 @@ class NewUser extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const {username, name} = this.state;
-        const {dispatch} = this.props;
+        const {dispatch, history, intendedUrl} = this.props;
 
         dispatch(handleAddUser({username, name}));
 
         this.setState(() => ({username: '', name: ''}));
+
+
+        const redirectUrl = intendedUrl === undefined ? '/home' : intendedUrl;
+        console.log('redirecting to', redirectUrl);
+        history.push(redirectUrl);
     }
     isUsernameUsed(username) {
-        return Object.keys(this.props.users).find(f => f === username);
+        return Object.keys(this.props.users).findIndex(f => f === username) > -1;
     }
     render() {
-        // const {users} = this.props;
         const {username, name} = this.state;
         
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className='form-group'>
-                    <input type='text' placeholder='Enter a username' onInput={this.handleUsernameInput} />
+                    <input type='text' 
+                        placeholder='Enter a username' 
+                        onInput={this.handleUsernameInput} 
+                        value={username}
+                        onChange={this.handleUsernameInput}
+                        />
                     {
                         username === '' ? '' : (
                                 this.isUsernameUsed(username)
@@ -51,7 +62,11 @@ class NewUser extends Component {
                                 : <TiTick className='login-icon thumbs-up' />
                         )
                     }
-                    <input type='text' placeholder='Enter a name' onInput={this.handleNameInput} />
+                    <input type='text' 
+                        placeholder='Enter a name' 
+                        onInput={this.handleNameInput} 
+                        value={name} 
+                        onChange={this.handleNameInput} />
                 </div>
                 <div className='form-group'>
                     <button 
@@ -67,9 +82,10 @@ class NewUser extends Component {
     }
 }
 
-function mapStateToProps({users}) {
+function mapStateToProps({users}, {intendedUrl}) {
     return {
-        users
+        users,
+        intendedUrl
     }
 }
-export default connect(mapStateToProps)(NewUser);
+export default withRouter(connect(mapStateToProps)(NewUser));
