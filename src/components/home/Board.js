@@ -35,14 +35,16 @@ class Board extends Component {
                         <div className='left w-40'>
                             <h3>{user.name}</h3>
                             <table className='table'>
-                                <tr>
-                                    <td>Answered Questions</td>
-                                    <td>{aCount}</td>
-                                </tr>
-                                <tr>
-                                    <td>Created Questions</td>
-                                    <td>{qCount}</td>
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>Answered Questions</td>
+                                        <td>{aCount}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Created Questions</td>
+                                        <td>{qCount}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                         <div className='left w-25'>
