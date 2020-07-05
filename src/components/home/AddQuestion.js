@@ -84,4 +84,4 @@ function mapStateToProps({authedUser}){
     }
 }
 
-export default requireAuth(connect(mapStateToProps)(AddQuestion));
+export default requireAuth(connect(mapStateToProps)(AddQuestion), '/add');

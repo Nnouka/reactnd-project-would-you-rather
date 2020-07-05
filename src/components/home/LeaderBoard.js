@@ -29,4 +29,4 @@ function mapStateToProps({users}){
         users
     }
 }
-export default requireAuth(connect(mapStateToProps)(LeaderBoard));
+export default requireAuth(connect(mapStateToProps)(LeaderBoard), '/leaderboard');
