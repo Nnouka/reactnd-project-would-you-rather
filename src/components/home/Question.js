@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import icon from '../../assets/icons/icon.jpg';
 import Poll from './Poll';
-import  requireAuth from '../guest/Authenticator';
 import PollResult from './PollResult';
+import Login from '../guest/Login';
+import _404 from '../errors/_404';
 
 class Question extends Component {
     render(){
-        const {question, users, authedUser} = this.props;
+        const {question, users, authedUser, isAuthenticated, match} = this.props;
         const isAnswered = question !== undefined && (question.optionOne.votes.findIndex(uid => uid === authedUser) > -1 
                             || question.optionTwo.votes.findIndex(uid => uid === authedUser) > -1);
         return (
-            question === undefined ? <div>Question not found</div> :
+            isAuthenticated ? 
+
+            // eslint-disable-next-line react/jsx-pascal-case
+            (question === undefined ? <_404 /> :
                 <li>
                     <div className='card shadow'>
                         <div className='card-header-sm logo-bg'>
@@ -36,6 +40,7 @@ class Question extends Component {
                         </div>
                     </div>
                 </li>
+            ): <Login intendedUrl={`/questions/${match.params.id}`}/>
             );
     }
 }
@@ -45,8 +50,9 @@ function mapStateToProps({authedUser, users, questions}, props) {
     return {
         authedUser,
         users,
-        question: questions[id]
+        question: questions[id],
+        isAuthenticated: authedUser !== null
     }
 }
 
-export default requireAuth(connect(mapStateToProps)(Question));
+export default connect(mapStateToProps)(Question);
