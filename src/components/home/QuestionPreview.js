@@ -7,7 +7,7 @@ class QuestionPreview extends Component {
     render () {
         const {question, users, authedUser} = this.props;
         return (
-            <li key={question.id}>
+            <li>
                 <div className='card shadow'>
                     <div className='card-header-sm logo-bg'>
                         {`${question.author === authedUser 
@@ -24,10 +24,10 @@ class QuestionPreview extends Component {
                             className='question-avatar'
                             />
                         </div>
-                        <div className='right'>
+                        <div className='right w-60'>
                             <h3>Would You Rather...</h3>
                             <p>...{question.optionOne.text}</p>
-                            <Link to={`/question/${question.id}`} className='btn'>
+                            <Link to={`/questions/${question.id}`} className='btn'>
                                 View All
                             </Link>
                         </div>

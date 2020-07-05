@@ -8,6 +8,9 @@ import _404 from '../errors/_404';
 import Home from '../home/Home';
 import Nav from './Nav';
 import Logout from '../guest/Logout';
+import Question from '../home/Question';
+import LeaderBoard from '../home/LeaderBoard';
+import AddQuestion from '../home/AddQuestion';
 
 class App extends Component {
   componentDidMount() {
@@ -32,6 +35,9 @@ class App extends Component {
                   <Route exact path='/' component={Login} />
                   <Route exact path='/home' component={Home} />
                   <Route exact path='/logout' component={Logout} />
+                  <Route exact path='/questions/:id' component={Question} />
+                  <Route exact path='/leaderboard' component={LeaderBoard} />
+                  <Route exact path='/add' component={AddQuestion} />
                   <Route component={_404} />
                 </Switch>
                   

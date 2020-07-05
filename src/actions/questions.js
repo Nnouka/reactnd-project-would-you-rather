@@ -1,34 +1,30 @@
-import {getQuestions} from '../utils/api';
+import {getQuestions, saveAnswer, saveQuestion} from '../utils/api';
 import {showLoading, hideLoading} from 'react-redux-loading';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
-// export const TOGGLE_TWEET = 'TOGGLE_TWEET';
-// export const ADD_TWEET = 'ADD_TWEET';
+export const VOTE_QUESTION = 'VOTE_QUESTION';
+export const ADD_QUESTION = 'ADD_QUESTION';
 
-/*function addTweet (tweet) {
+function voteQuestion (vote) {
     return {
-        type: ADD_TWEET,
-        tweet
+        type: VOTE_QUESTION,
+        vote
     }
 }
 
-export function handleAddTweet (text, replyingTo) {
+export function handleVoteQuestion (qid, answer) {
     return (dispatch, getState) => {
         const {authedUser} = getState();
         dispatch(showLoading());
 
-        return saveTweet({
-            text,
-            author: authedUser,
-            replyingTo
-        })
-        .then((tweet) => {
-           return dispatch(addTweet(tweet))
+        return saveAnswer({ authedUser, qid, answer })
+        .then(() => {
+           return dispatch(voteQuestion({ authedUser, qid, answer }))
         })
         .then(() => dispatch(hideLoading()))
     }
 }
-*/
+
 export function receiveQuestions (questions) {
     return {
         type: RECEIVE_QUESTIONS,
@@ -38,32 +34,27 @@ export function receiveQuestions (questions) {
 
 export function handleReceiveQuestions() {
     return (dispatch) => {
-        dispatch(showLoading())
+        dispatch(showLoading());
         return getQuestions().then(questions => {
             dispatch(receiveQuestions(questions));
-            dispatch(hideLoading())
+            dispatch(hideLoading());
         });
     }
 }
 
-/*
-function toggleTweet ({id, authedUser, hasLiked}) {
+function addQuestion(question){
     return {
-        type: TOGGLE_TWEET,
-        id,
-        authedUser,
-        hasLiked
+        type: ADD_QUESTION,
+        question
     }
 }
 
-export function handleToggleTweet(info) {
+export function handleAddQuestion(question) {
     return (dispatch) => {
-        dispatch(toggleTweet(info));
-        return saveLikeToggle(info)
-            .catch((e) => {
-                console.warn('Error in handleToggleTweet: ', e);
-                dispatch(toggleTweet(info));
-                alert('There was an error liking tweet');
-            });
+        dispatch(showLoading());
+        return saveQuestion(question).then(savedQ => {
+            dispatch(addQuestion(savedQ));
+            dispatch(hideLoading());
+        })
     }
-}*/
+}

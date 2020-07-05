@@ -79,7 +79,9 @@ li {
   padding: 10px;
   text-decoration: none;
 }
-
+.w-60 {
+  width: 60%;
+}
 .avatar {
   height: 50px;
   border-radius: 25px;
@@ -119,6 +121,7 @@ li {
 }
 
 .card {
+  position: relative;
   width: 100%;
   max-width: 590px;
   padding: 10px;
@@ -143,6 +146,11 @@ li {
 .card .card-header-sm {
   padding: 2px 10px;
   color: hsl(0, 0%, 2%);
+}
+.card .score-header {
+  padding: 2px 10px;
+  background-color: hsl(0, 11%, 84%);
+  font-weight: bold;
 }
 .logo-bg {
   background-size: cover;
@@ -248,9 +256,18 @@ select, input {
 select {
   width: 100%;
 }
-input {
+input[type='text'] {
   width: 80%;
   margin-bottom: 20px;
+}
+input[type='radio']:hover {
+  cursor: pointer;
+}
+input[type='radio'] {
+  margin-bottom: 10px;
+}
+label {
+  padding: 10px;
 }
 
 option.image-bg {
@@ -264,7 +281,9 @@ option.image-bg {
 .form-group {
   padding: 20px 10px;
 }
-
+.form-group-sm {
+  padding: 5px 10px;
+}
 /* for nav pills https://gist.github.com/lemiant/1e353703a7f6e706f9be */
 
 .nav-tabs:before,
@@ -303,6 +322,7 @@ option.image-bg {
   color: #555555;
   background-color: hsl(202, 50%, 88%);
   cursor: default;
+  border: solid 1px hsl(303, 69%, 70%);
 }
 .nav-pills > li > a {
   padding-top: 8px;
@@ -328,4 +348,90 @@ option.image-bg {
 }
 .thumbs-up {
   color: hsl(118, 86%, 67%);
+}
+.w-100 {
+  width: 100% !important;
+}
+
+.progress-container {
+  background-color: hsl(170, 13%, 82%);
+  width: 90%;
+}
+.progress-content {
+  padding: 5px;
+  background-color: hsl(145, 100%, 49%);
+  color: hsl(0, 0%, 100%);
+  font-weight: bold;
+  text-align: center;
+}
+
+.answer-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: hsl(51, 100%, 50%);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.answer-badge-content {
+  color: hsl(0, 0%, 100%);
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 12px;
+}
+
+.board-badge {
+  position: absolute;
+  display: inline-table;
+  top: -10px;
+  left: -10px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+.board-badge-content {
+  color: hsl(0, 0%, 100%);
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 12px;
+}
+.your-answer {
+  background: linear-gradient(35deg, #ccffff, #ffffff);
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.score {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.table {
+  width: 90%;
+}
+.table > tr {
+  padding: 5px;
+  border-bottom: solid 1px hsl(303, 69%, 70%);
+}
+
+.table:first-child {
+  border-bottom: solid 1px hsl(303, 69%, 70%);
+}
+
+.table > td {
+  padding-left: 2px;
 }
