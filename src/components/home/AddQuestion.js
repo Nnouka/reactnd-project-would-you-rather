@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import {handleAddQuestion} from '../../actions/questions';
 import  requireAuth from '../guest/Authenticator';
+
 
 class AddQuestion extends Component {
 
@@ -28,11 +30,12 @@ class AddQuestion extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const {optionOneText, optionTwoText} = this.state;
-        const {dispatch, authedUser} = this.props;
+        const {dispatch, authedUser, history} = this.props;
 
         dispatch(handleAddQuestion({optionOneText, optionTwoText, author: authedUser}));
 
         this.setState(() => ({optionOneText: '', optionTwoText: ''}));
+        setTimeout(() => history.push('/home'), 1500);
     }
     render() {
         const {optionOneText, optionTwoText} = this.state;
@@ -84,4 +87,4 @@ function mapStateToProps({authedUser}){
     }
 }
 
-export default requireAuth(connect(mapStateToProps)(AddQuestion), '/add');
+export default requireAuth(withRouter(connect(mapStateToProps)(AddQuestion)), '/add');

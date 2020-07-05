@@ -12,15 +12,9 @@ class Home extends Component {
         questions: []
     }
     componentDidMount() {
-        const {questions} = this.props;
-        let filtered = Object.keys(questions)
-            .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
-            .map(questionId => questions[questionId]).filter((f) => this.filterQuestion(f));
-        this.setState((prevState) => ({
-            ...prevState,
-            questions: filtered
-        }) );
+        this.filterQuestions(this.UNANSWERED);
     }
+    
     filterQuestion(question, active = this.UNANSWERED){
         const {authedUser} = this.props;
         if(active === this.ANSWERED) {
